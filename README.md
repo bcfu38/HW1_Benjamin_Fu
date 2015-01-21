@@ -1,3 +1,3 @@
 # HW1_Benjamin_Fu
 
-license.
+Files related to BIOST578 HW1
