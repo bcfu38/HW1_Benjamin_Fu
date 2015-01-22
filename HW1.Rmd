@@ -1,0 +1,34 @@
+---
+title: "HW1"
+output: html_document
+---
+
+For this assignment, ggplot2 was used to plot length vs width facetting petal/sepal vs flower type with the Iris dataset
+
+```{r, echo=FALSE}
+data(iris)
+library(reshape2)
+library(ggplot2)
+# We first need to add a column to keep track of the flower
+iris$flower_id <- rownames(iris)
+# Default options
+iris_melted <- melt(iris)
+# We first split that variable to get the columns we need
+split_variable <- strsplit(as.character(iris_melted$variable), split = "\\.")
+# Create two new variables
+iris_melted$flower_part <- sapply(split_variable, "[", 1)
+iris_melted$measurement_type <- sapply(split_variable, "[", 2)
+# Remove the one we don't need anymore
+iris_melted$variable <- NULL
+iris_cast <- dcast(iris_melted, formula = flower_id + Species + flower_part ~ measurement_type)
+```
+
+
+```{r, echo=FALSE}
+ggplot(data=iris_cast, aes(x=Width, y=Length))+ # Add points and use free scales in the facet
+  geom_point()+facet_grid(Species~flower_part, scale="free")+
+  # Add a regression line
+  geom_smooth(method="lm")+
+  # Use the black/white theme and increase the font size
+  theme_bw(base_size=24)
+```
