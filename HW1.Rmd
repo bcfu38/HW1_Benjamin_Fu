@@ -3,13 +3,14 @@ title: "HW1"
 output: html_document
 ---
 
-For this assignment, ggplot2 was used to plot length vs width facetting petal/sepal vs flower type with the Iris dataset
+For this assignment, ggplot2 was used to plot length vs width facetting petal/sepal vs flower type with the Iris dataset. All R code is displayed as well.
 
-```{r, echo=FALSE}
+```{r}
+# First load the Iris data and load reshape2 and ggplot2 packages
 data(iris)
 library(reshape2)
 library(ggplot2)
-# We first need to add a column to keep track of the flower
+# Add a column to keep track of the flower
 iris$flower_id <- rownames(iris)
 # Default options
 iris_melted <- melt(iris)
@@ -24,7 +25,8 @@ iris_cast <- dcast(iris_melted, formula = flower_id + Species + flower_part ~ me
 ```
 
 
-```{r, echo=FALSE}
+```{r}
+# Plot
 ggplot(data=iris_cast, aes(x=Width, y=Length))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
   # Add a regression line
