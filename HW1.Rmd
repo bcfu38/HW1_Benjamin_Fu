@@ -32,5 +32,5 @@ ggplot(data=iris_cast, aes(x=Width, y=Length))+ # Add points and use free scales
   # Add a regression line
   geom_smooth(method="lm")+
   # Use the black/white theme and increase the font size
-  theme_bw(base_size=24)
+  theme_bw(base_size=16)
 ```
